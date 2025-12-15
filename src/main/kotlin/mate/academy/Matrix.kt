@@ -34,8 +34,6 @@ class Matrix(private val rows: Int, private val cols: Int) {
         return result
     }
 
-    // TODO: implement overloading operators for matrix addition and subtraction
-
     override fun toString(): String {
         return data.joinToString(separator = "\n") { row -> row.joinToString(" ") }
     }
