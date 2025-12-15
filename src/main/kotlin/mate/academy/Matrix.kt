@@ -4,6 +4,7 @@ class Matrix(private val rows: Int, private val cols: Int) {
     private val data = Array(rows) { IntArray(cols) }
 
     operator fun get(row: Int, col: Int): Int = data[row][col]
+
     operator fun set(row: Int, col: Int, value: Int) {
         data[row][col] = value
     }
@@ -12,6 +13,7 @@ class Matrix(private val rows: Int, private val cols: Int) {
         require(rows == other.rows && cols == other.cols) {
             "Matrices must have the same dimensions for addition"
         }
+
         val result = Matrix(rows, cols)
         for (r in 0 until rows) {
             for (c in 0 until cols) {
@@ -25,6 +27,7 @@ class Matrix(private val rows: Int, private val cols: Int) {
         require(rows == other.rows && cols == other.cols) {
             "Matrices must have the same dimensions for subtraction"
         }
+
         val result = Matrix(rows, cols)
         for (r in 0 until rows) {
             for (c in 0 until cols) {
@@ -34,8 +37,9 @@ class Matrix(private val rows: Int, private val cols: Int) {
         return result
     }
 
-    override fun toString(): String {
-        return data.joinToString(separator = "\n") { row -> row.joinToString(" ") }
-    }
+    override fun toString(): String =
+        data.joinToString(separator = "\n") { row ->
+            row.joinToString(" ")
+        }
 }
 
