@@ -40,3 +40,4 @@ class Matrix(private val rows: Int, private val cols: Int) {
         return data.joinToString(separator = "\n") { row -> row.joinToString(" ") }
     }
 }
+
