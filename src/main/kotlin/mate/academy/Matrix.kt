@@ -10,14 +10,10 @@ class Matrix(private val rows: Int, private val cols: Int) {
         data[row][col] = value
     }
 
-    private fun validateSameSize(other: Matrix) {
-        require(rows == other.rows && cols == other.cols) {
-            "Matrices must have the same dimensions"
-        }
-    }
-
     operator fun plus(other: Matrix): Matrix {
-        validateSameSize(other)
+        require(rows == other.rows && cols == other.cols) {
+            "Matrices must have the same dimensions for addition"
+        }
 
         val result = Matrix(rows, cols)
         for (r in 0 until rows) {
@@ -29,7 +25,9 @@ class Matrix(private val rows: Int, private val cols: Int) {
     }
 
     operator fun minus(other: Matrix): Matrix {
-        validateSameSize(other)
+        require(rows == other.rows && cols == other.cols) {
+            "Matrices must have the same dimensions for subtraction"
+        }
 
         val result = Matrix(rows, cols)
         for (r in 0 until rows) {
@@ -41,9 +39,8 @@ class Matrix(private val rows: Int, private val cols: Int) {
     }
 
     override fun toString(): String =
-        data.joinToString(separator = "\n") { row ->
+        data.joinToString("\n") { row ->
             row.joinToString(" ")
         }
 }
-
 
