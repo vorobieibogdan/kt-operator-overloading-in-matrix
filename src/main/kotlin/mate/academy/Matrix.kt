@@ -5,16 +5,15 @@ class Matrix(
     private val cols: Int
 ) {
 
-    private val data =
-        Array(rows) {
-            IntArray(cols)
-        }
+    private val data: Array<IntArray> =
+        Array(rows) { IntArray(cols) }
 
     operator fun get(
         row: Int,
         col: Int
-    ): Int =
-        data[row][col]
+    ): Int {
+        return data[row][col]
+    }
 
     operator fun set(
         row: Int,
@@ -28,23 +27,14 @@ class Matrix(
         other: Matrix
     ): Matrix {
 
-        require(
-            rows == other.rows &&
-                    cols == other.cols
-        ) {
-            "Matrices must have " +
-                    "the same dimensions " +
-                    "for addition"
-        }
+        validateDimensions(other)
 
-        val result =
-            Matrix(rows, cols)
+        val result = Matrix(rows, cols)
 
-        for (r in 0 until rows) {
-            for (c in 0 until cols) {
-                result[r, c] =
-                    this[r, c] +
-                            other[r, c]
+        for (row in 0 until rows) {
+            for (col in 0 until cols) {
+                result[row, col] =
+                    this[row, col] + other[row, col]
             }
         }
 
@@ -55,36 +45,39 @@ class Matrix(
         other: Matrix
     ): Matrix {
 
-        require(
-            rows == other.rows &&
-                    cols == other.cols
-        ) {
-            "Matrices must have " +
-                    "the same dimensions " +
-                    "for subtraction"
-        }
+        validateDimensions(other)
 
-        val result =
-            Matrix(rows, cols)
+        val result = Matrix(rows, cols)
 
-        for (r in 0 until rows) {
-            for (c in 0 until cols) {
-                result[r, c] =
-                    this[r, c] -
-                            other[r, c]
+        for (row in 0 until rows) {
+            for (col in 0 until cols) {
+                result[row, col] =
+                    this[row, col] - other[row, col]
             }
         }
 
         return result
     }
 
-    override fun toString(): String =
-        data.joinToString(
+    private fun validateDimensions(
+        other: Matrix
+    ) {
+        val sameRows = rows == other.rows
+        val sameCols = cols == other.cols
+
+        require(sameRows && sameCols) {
+            "Matrices must have the same dimensions"
+        }
+    }
+
+    override fun toString(): String {
+        return data.joinToString(
             separator = "\n"
         ) { row ->
             row.joinToString(
                 separator = " "
             )
         }
+    }
 }
 
